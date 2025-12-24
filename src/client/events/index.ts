@@ -21,6 +21,9 @@ import { ServerUpdate } from "./serverupdate";
 import { UserUpdate } from "./userUpdate";
 import { MessageReact } from "./messageReact";
 import { MessageUnreact } from "./messageUnreact";
+import { WebhookCreate } from "./webhookCreate";
+import { WebhookDelete } from "./webhookDelete";
+import { WebhookUpdate } from "./webhookUpdate";
 
 export const EventMap = {
   bulkMessageDelete: BulkMessageDelete,
@@ -45,4 +48,7 @@ export const EventMap = {
   userUpdate: UserUpdate,
   messageReact: MessageReact,
   messageUnreact: MessageUnreact,
+  webhookCreate: WebhookCreate,
+  webhookDelete: WebhookDelete,
+  webhookUpdate: WebhookUpdate,
 };

@@ -1,6 +1,6 @@
 {
   "name": "revbot.js",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "A Revolt bot client used to interact with the revolt api for Node.js, written in TypeScript.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -28,6 +28,7 @@
     "@mxssfd/typedoc-theme": "^1.1.7",
     "@types/node": "^22.15.2",
     "@types/ws": "^8.18.1",
+    "cross-env": "^10.1.0",
     "eslint-config-prettier": "^10.1.2",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
@@ -48,10 +49,9 @@
     "lint": "eslint . --ext .ts --fix",
     "build": "yarn clean && yarn tsup ./src/index.ts --format cjs,esm --clean --dts --sourcemap",
     "start": "yarn build && yarn node --enable-source-maps dist/index.js",
-    "testClient": "yarn test:build && yarn node --enable-source-maps dist/test.js",
+    "testClient": "yarn test:build && cross-env NODE_ENV=test yarn node --enable-source-maps dist/test.js",
     "clean": "rimraf dist",
     "test:docs": "rimraf docs && yarn typedoc --options static/typedoc.json",
-    "test:build": "yarn clean && tsc -p tsconfig.json",
-    "publish": "yarn build && npm publish"
+    "test:build": "yarn clean && tsc -p tsconfig.json"
   }
 }

@@ -53,6 +53,13 @@ export class RestClient {
           return this.retryRequest<T>(0, method, url, body, query);
         }
         if (error.status) {
+          if (process.env.NODE_ENV === "test") {
+            console.error("Error details:", error);
+            console.error("Error response data:", error.response?.data);
+            console.error("Error request config:", error.config);
+            console.error("Error message:", error.message);
+            console.error("Error URL:", url);
+          }
           throw new Error(
             `API call failed with status ${error.status}: ${error.response?.statusText}`,
           );

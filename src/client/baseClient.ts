@@ -11,6 +11,11 @@ import { RestClient } from "../rest/restClient";
 import { MessageStruct } from "../struct/index";
 import { client } from "./client";
 import { CDNClient } from "../rest/CDNClient";
+import {
+  WebhookCreateData,
+  WebhookDeleteData,
+  WebhookUpdateData,
+} from "../utils/types";
 
 /**
  * Represents the base client that provides core functionality for interacting with the API.
@@ -114,6 +119,12 @@ export interface ClientEvents {
   [Events.ROLE_DELETE]: [Role];
   /** emitted when a role is updated */
   [Events.ROLE_UPDATE]: [Role, Role];
+  /** emitted when a webhook is created */
+  [Events.WEBHOOKS_CREATE]: [WebhookCreateData];
+  /** emitted when a webhook is deleted */
+  [Events.WEBHOOKS_DELETE]: [WebhookDeleteData];
+  /** emitted when a webhook is updated */
+  [Events.WEBHOOKS_UPDATE]: [WebhookUpdateData];
 }
 
 /**

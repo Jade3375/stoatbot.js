@@ -15,6 +15,10 @@ export interface CreateChannelOptions {
   name: string;
   type?: "Text" | "Voice";
   description?: string;
+  nsfw?: boolean;
+  voice: {
+    max_users?: number;
+  };
 }
 
 export class ServerChannelManager extends BaseManager<ServerChannel> {

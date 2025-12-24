@@ -1,5 +1,6 @@
 import { ChannelManager, ServerManager } from "../managers";
 import { UserManager } from "../managers/userManager";
+import { WebhookManager } from "../managers/webhookManager";
 import { ClientUser } from "../struct/clientUser";
 import { BaseClient } from "./baseClient";
 import { EventManager } from "./events/eventManager";
@@ -25,6 +26,9 @@ export class client extends BaseClient {
 
   /** Manages the events in the client. */
   readonly events = new EventManager(this);
+
+  /** Manages the webhooks in the client. */
+  readonly webhooks = new WebhookManager(this);
 
   /** The authenticated user, or `null` if not logged in. */
   user: ClientUser | null = null;

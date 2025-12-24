@@ -33,6 +33,9 @@ export enum Events {
   TYPING_START = "typingStart",
   TYPING_STOP = "typingStop",
   USER_UPDATE = "userUpdate",
+  WEBHOOKS_CREATE = "webhookCreate",
+  WEBHOOKS_DELETE = "webhookDelete",
+  WEBHOOKS_UPDATE = "webhookUpdate",
 }
 
 /**
@@ -70,6 +73,9 @@ export enum WSEvents {
   SERVER_UPDATE = "ServerUpdate",
   USER_RELATIONSHIP = "UserRelationship",
   USER_UPDATE = "UserUpdate",
+  WEBHOOKS_CREATE = "WebhooksCreate",
+  WEBHOOKS_DELETE = "WebhooksDelete",
+  WEBHOOKS_UPDATE = "WebhooksUpdate",
 }
 
 /**
