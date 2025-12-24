@@ -1,7 +1,7 @@
 {
   "name": "stoatbot.js",
-  "version": "0.3.0",
-  "description": "A Revolt bot client used to interact with the revolt api for Node.js, written in TypeScript.",
+  "version": "0.3.1",
+  "description": "A Stoat bot client used to interact with the stoat api for Node.js, written in TypeScript.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
