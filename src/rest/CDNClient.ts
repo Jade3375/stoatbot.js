@@ -37,7 +37,7 @@ export class CDNClient {
           headers: {
             [authHeader]: this.client.token,
             "Content-Type": "multipart/form-data",
-            "User-Agent": `RevBot.js/${version}`,
+            "User-Agent": `StoatBot.js/${version}`,
             ...data.getHeaders(),
           },
         },

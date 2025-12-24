@@ -1,6 +1,6 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "name": "revbot.js",
+  "name": "stoatbot.js",
   "entryPoints": ["../src"],
   "plugin": [
     "typedoc-plugin-extras",
@@ -20,7 +20,7 @@
   "json": "../docs/docs.json",
   "exclude": [],
   "favicon": "./favicon.ico",
-  "titleLink": "https://jade3375.github.io/revbot.js/",
+  "titleLink": "https://jade3375.github.io/stoatbot.js/",
   "mergeModulesMergeMode": "project",
   "kindSortOrder": ["Class", "Namespace"]
 }

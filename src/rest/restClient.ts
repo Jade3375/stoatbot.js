@@ -36,7 +36,7 @@ export class RestClient {
           data: body?.body,
           headers: {
             [authHeader]: this.client.token,
-            "User-Agent": `RevBot.js/${version}`,
+            "User-Agent": `StoatBot.js/${version}`,
           },
         },
         url: `${this.client.options.rest?.instanceURL ? this.client.options.rest?.instanceURL : apiUrl}${url}`,

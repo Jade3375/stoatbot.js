@@ -1,32 +1,32 @@
-# revbot.js
+# stoatbot.js
 
 # Note: this package is currently in the early stages of development and testing
 
-`revbot.js` is a Node.js library for building bots on the Revolt platform. It provides an easy-to-use interface for interacting with Revolt's API, managing events, and handling various bot functionalities. NOTE: node 21 is required to run this
-[revolt server](https://stt.gg/cFSwBt4R) [docs](https://jade3375.github.io/revbot.js/)
+`stoatbot.js` is a Node.js library for building bots on the Revolt platform. It provides an easy-to-use interface for interacting with Revolt's API, managing events, and handling various bot functionalities. NOTE: node 21 is required to run this
+[revolt server](https://stt.gg/cFSwBt4R) [docs](https://jade3375.github.io/stoatbot.js/)
 
 ## Installation
 
 ```bash
-npm install revbot.js
+npm install stoatbot.js
 ```
 
 or
 
 ```bash
-yarn add revbot.js
+yarn add stoatbot.js
 ```
 
 ## Basic Setup
 
-Below is an example of how to set up a basic bot using `revbot.js`:
+Below is an example of how to set up a basic bot using `stoatbot.js`:
 
 ### Example Code
 
 ### typescript
 
 ```ts
-import { client, MessageStruct } from "revbot.js";
+import { client, MessageStruct } from "stoatbot.js";
 
 const bot = new client({});
 
@@ -46,7 +46,7 @@ bot.login("YOUR_BOT_TOKEN");
 ### javascript
 
 ```js
-const { client } = require("revbot.js");
+const { client } = require("stoatbot.js");
 
 const bot = new client({});
 
@@ -76,8 +76,8 @@ To contribute or modify the library:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Jade3375/revbot.js.git
-   cd revbot.js
+   git clone https://github.com/Jade3375/stoatbot.js.git
+   cd stoatbot.js
    ```
 
 2. Install dependencies:
@@ -94,17 +94,17 @@ To contribute or modify the library:
 
 ## Contribution
 
-We welcome contributions to `revbot.js`! To contribute, follow these steps:
+We welcome contributions to `stoatbot.js`! To contribute, follow these steps:
 
 1. **Fork the Repository**  
-   Go to the [repository](https://github.com/Jade3375/revbot.js) and click the "Fork" button to create your own copy.
+   Go to the [repository](https://github.com/Jade3375/stoatbot.js) and click the "Fork" button to create your own copy.
 
 2. **Clone Your Fork**  
    Clone your forked repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-username/revbot.js
-   cd revbot.js
+   git clone https://github.com/your-username/stoatbot.js
+   cd stoatbot.js
    ```
 
 3. **Create a Branch**  
@@ -149,7 +149,7 @@ We welcome contributions to `revbot.js`! To contribute, follow these steps:
 - Add or update documentation if necessary.
 - Ensure your changes do not break existing functionality.
 
-Thank you for contributing to `revbot.js`!
+Thank you for contributing to `stoatbot.js`!
 
 ## License
 

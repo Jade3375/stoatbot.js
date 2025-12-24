@@ -1,6 +1,6 @@
 {
-  "name": "revbot.js",
-  "version": "0.2.6",
+  "name": "stoatbot.js",
+  "version": "0.3.0",
   "description": "A Revolt bot client used to interact with the revolt api for Node.js, written in TypeScript.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -11,16 +11,17 @@
   "engines": {
     "node": ">=21.0.0"
   },
-  "repository": "https://github.com/Jade3375/revbot.js",
+  "repository": "https://github.com/Jade3375/stoatbot.js",
   "keywords": [
     "revoltjs",
     "revolt.js",
     "bot",
     "client",
-    "revbot",
+    "stoatbot",
+    "stoat",
     "typescript"
   ],
-  "homepage": "https://jade3375.github.io/revbot.js/",
+  "homepage": "https://jade3375.github.io/stoatbot.js/",
   "author": "Jade3375",
   "license": "MIT",
   "packageManager": "yarn@4.9.1",

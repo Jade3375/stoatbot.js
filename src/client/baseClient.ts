@@ -201,12 +201,12 @@ export abstract class BaseClient extends EventEmitter {
     if (options.rest?.instanceURL) {
       if (!options.rest?.instanceURL) {
         console.error(
-          'instance URLs must be provided (REST) see docs at "https://jade3375.github.io/revbot.js/interfaces/clientOptions.html"',
+          'instance URLs must be provided (REST) see docs at "https://jade3375.github.io/stoatbot.js/interfaces/clientOptions.html"',
         );
         process.exit(0);
       } else {
         console.warn(
-          "You are connecting to a custom instance of Revolt. compatibility with RevBot.js is not guaranteed.",
+          "You are connecting to a custom instance of Revolt. compatibility with StoatBot.js is not guaranteed.",
         );
       }
     }
