@@ -16,12 +16,16 @@ export class ChannelManager extends BaseManager<Channel, APIChannel> {
   holds = null;
 
   /** @private */
-  _add(data: APIChannel): Channel {
+  _add(data: APIChannel & { voice?: any }): Channel {
     let channel: Channel;
 
     switch (data.channel_type) {
       case "TextChannel":
-        channel = new TextChannel(this.client, data);
+        if (data.voice !== undefined) {
+          channel = new VoiceChannel(this.client, data as any);
+        } else {
+          channel = new TextChannel(this.client, data);
+        }
         break;
       case "VoiceChannel":
         channel = new VoiceChannel(this.client, data);

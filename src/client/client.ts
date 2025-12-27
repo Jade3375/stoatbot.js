@@ -4,6 +4,7 @@ import { WebhookManager } from "../managers/webhookManager";
 import { ClientUser } from "../struct/clientUser";
 import { BaseClient } from "./baseClient";
 import { EventManager } from "./events/eventManager";
+import { VoiceClient } from "./voiceClient";
 import { WebSocketClient } from "./webSocket";
 
 /**
@@ -29,6 +30,9 @@ export class client extends BaseClient {
 
   /** Manages the webhooks in the client. */
   readonly webhooks = new WebhookManager(this);
+
+  /** Manages the voice connections in the client. */
+  readonly voice = new VoiceClient(this);
 
   /** The authenticated user, or `null` if not logged in. */
   user: ClientUser | null = null;

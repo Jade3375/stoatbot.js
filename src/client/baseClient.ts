@@ -149,9 +149,9 @@ export interface clientOptions {
     timeout?: number;
     /** The number of retries for failed REST requests. */
     retries?: number;
-    /** URL for revolt API instance without trailing slash */
+    /** URL for stoat API instance without trailing slash */
     instanceURL?: string;
-    /** URL for revolt CDN instance without trailing slash */
+    /** URL for stoat CDN instance without trailing slash */
     instanceCDNURL?: string;
   };
 
@@ -166,9 +166,21 @@ export interface clientOptions {
     heartbeatInterval?: number;
     /** Whether to automatically reconnect on disconnection. */
     reconnect?: boolean;
-    /** URL for revolt WebSocket instance without trailing slash */
+    /** URL for stoat WebSocket instance without trailing slash */
     instanceURL?: string;
   };
+}
+
+export interface VoiceClientOptions {
+  enabled?: boolean;
+  nodes?: VoiceNode[];
+}
+
+export interface VoiceNode {
+  name: string;
+  lat: number;
+  lon: number;
+  public_url: string;
 }
 
 /**
@@ -188,6 +200,11 @@ export abstract class BaseClient extends EventEmitter {
 
   /** The options for configuring the client. */
   options: clientOptions;
+
+  voiceOptions: VoiceClientOptions = { enabled: false };
+
+  /** Track current voice connection to prevent AlreadyConnected errors */
+  currentVoiceConnection: { channelId: string; playerId: string } | null = null;
 
   /** Whether the client is a bot. */
   bot = true;

@@ -16,8 +16,9 @@ import {
   ServerMember,
   TextChannel,
   User,
+  VoiceChannel,
 } from "./index";
-import { UUID } from "../utils/index";
+import { ChannelTypes, UUID } from "../utils/index";
 
 /**
  * Represents a message in a channel.
@@ -168,10 +169,23 @@ export class MessageStruct extends Base {
   /**
    * Retrieves the channel where the message was sent.
    *
-   * @returns {TextChannel | DMChannel | GroupChannel} The channel instance.
+   * @returns {TextChannel | DMChannel | GroupChannel | VoiceChannel} The channel instance.
    */
-  get channel(): TextChannel | DMChannel | GroupChannel {
-    return this.client.channels.cache.get(this.channelId) as TextChannel;
+  get channel(): TextChannel | DMChannel | GroupChannel | VoiceChannel {
+    const channel = this.client.channels.cache.get(this.channelId);
+
+    switch (channel?.type) {
+      case ChannelTypes.TEXT:
+        return channel as TextChannel;
+      case ChannelTypes.DM:
+        return channel as DMChannel;
+      case ChannelTypes.GROUP:
+        return channel as GroupChannel;
+      case ChannelTypes.VOICE:
+        return channel as VoiceChannel;
+      default:
+        return channel as TextChannel;
+    }
   }
 
   /**

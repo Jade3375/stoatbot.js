@@ -33,7 +33,7 @@ export class RateLimitQueue {
             const res = await this._doRequest<T>(config, path);
             resolve(res);
           } catch (e) {
-            reject(e);
+            console.error(e);
           }
         });
       });

@@ -1,6 +1,7 @@
 import { Role } from "revolt-api";
 import { FullPermissions } from "./permissions";
 import { Readable } from "stream";
+import { VoiceClientOptions } from "../client/baseClient";
 
 /**
  * Represents a response from the API when uploading an attachment.
