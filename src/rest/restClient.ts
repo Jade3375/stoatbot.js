@@ -42,7 +42,6 @@ export class RestClient {
         url: `${this.client.options.rest?.instanceURL ? this.client.options.rest?.instanceURL : apiUrl}${url}`,
       };
       if (process.env.NODE_ENV === "DEV") {
-        console.info("Request Config:", config);
         console.info("Request Body:", body);
         console.info("Request Query:", query);
         console.info("Request URL:", config.url);
@@ -90,6 +89,10 @@ export class RestClient {
         ...this.client.options.ws,
         instanceURL: config.ws,
       };
+      this.client.voiceOptions = {
+        ...config.features.livekit,
+      };
+      console.log(this.client.voiceOptions);
     } catch (error) {
       console.error("Failed to fetch configuration:", error);
       process.exit(1);
@@ -144,7 +147,7 @@ export class RestClient {
    */
   async post<T>(
     url: string,
-    body: any,
+    body?: any,
     query?: Record<string, string | number>,
   ): Promise<T> {
     return this.request<T>("POST", url, body, query);

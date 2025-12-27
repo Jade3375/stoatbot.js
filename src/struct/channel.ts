@@ -32,6 +32,7 @@ import { Readable } from "stream";
  */
 export abstract class Channel extends Base {
   type: ChannelTypes | "UNKNOWN" = "UNKNOWN";
+  voice?: any = undefined;
 
   /**
    * Gets the timestamp (in milliseconds) when the channel was created.
