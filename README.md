@@ -17,6 +17,11 @@ or
 yarn add stoatbot.js
 ```
 
+## voice support
+
+voice is supported via ffmpeg, please install before attempting any voice related features
+addtional audio processing libaries will be looked into at a future date
+
 ## Basic Setup
 
 Below is an example of how to set up a basic bot using `stoatbot.js`:
