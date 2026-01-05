@@ -14,7 +14,8 @@ import {
   TrackSource,
 } from "@livekit/rtc-node";
 
-import { client } from "./client";
+import { client } from "../client/client";
+import { nodeAVProcessor, isNodeAVAvailable } from "./node-av";
 
 /**
  * Events emitted by the AudioPlayer
@@ -494,7 +495,138 @@ export class AudioPlayer extends EventEmitter {
           this.emit("error", error, "track-unmute");
         }
 
-        // Set up FFmpeg for real-time conversion with simple, stable arguments
+        // Check if node-av is available for streaming
+        if (isNodeAVAvailable()) {
+          this.emit("debug", "Using node-av for streaming audio", {
+            source,
+            type,
+            sampleRate,
+            channels,
+          });
+
+          // Use node-av for streaming - no fallback to FFmpeg since node-av is installed
+          await nodeAVProcessor.createAudioStream(
+            audioStream,
+            sampleRate,
+            channels,
+            async (pcmChunk: Int16Array) => {
+              if (!this.isStreaming || this.shouldStop) return;
+
+              try {
+                // Apply volume control to the audio data
+                const volumeAdjustedPcmData = this.applyVolume(pcmChunk);
+
+                // Create AudioFrame and send to track
+                const frame = new AudioFrame(
+                  volumeAdjustedPcmData,
+                  sampleRate,
+                  channels,
+                  volumeAdjustedPcmData.length,
+                );
+
+                await source.captureFrame(frame);
+              } catch (frameError) {
+                if (!this.isStreaming || this.shouldStop) {
+                  return;
+                }
+                // For InvalidState errors during active streaming, continue without the frame
+                if (
+                  frameError instanceof Error &&
+                  frameError.message?.includes("InvalidState")
+                ) {
+                  return;
+                }
+                console.error("Error processing audio chunk:", frameError);
+              }
+            },
+            () => {
+              // onEnd
+              this.isStreaming = false;
+              if (source && type) {
+                this.emit("audioEnd", source, type);
+              }
+            },
+            (error: Error) => {
+              // onError
+              this.isStreaming = false;
+              this.emit("audioError", "stream", "streaming", error);
+            },
+          );
+
+          // Set up a way to stop streaming
+          this.once("disconnected", () => {
+            this.isStreaming = false;
+          });
+
+          // Use node-av for streaming - no fallback to FFmpeg since node-av is installed
+          await nodeAVProcessor.createAudioStream(
+            audioStream,
+            sampleRate,
+            channels,
+            async (pcmChunk: Int16Array) => {
+              if (!this.isStreaming || this.shouldStop) return;
+
+              try {
+                // Apply volume control to the audio data
+                const volumeAdjustedPcmData = this.applyVolume(pcmChunk);
+
+                // Create AudioFrame and send to track
+                const frame = new AudioFrame(
+                  volumeAdjustedPcmData,
+                  sampleRate,
+                  channels,
+                  volumeAdjustedPcmData.length,
+                );
+
+                await source.captureFrame(frame);
+              } catch (frameError) {
+                if (!this.isStreaming || this.shouldStop) {
+                  return;
+                }
+                // For InvalidState errors during active streaming, continue without the frame
+                if (
+                  frameError instanceof Error &&
+                  frameError.message?.includes("InvalidState")
+                ) {
+                  return;
+                }
+                console.error("Error processing audio chunk:", frameError);
+              }
+            },
+            () => {
+              // onEnd
+              this.isStreaming = false;
+              if (source && type) {
+                this.emit("audioEnd", source, type);
+              }
+            },
+            (error: Error) => {
+              // onError
+              this.isStreaming = false;
+              this.emit("audioError", "stream", "streaming", error);
+            },
+          );
+
+          // Set up a way to stop streaming
+          this.once("disconnected", () => {
+            this.isStreaming = false;
+          });
+
+          return;
+        }
+
+        // Only use FFmpeg if node-av is not available
+        this.emit(
+          "debug",
+          "node-av not available, using FFmpeg for streaming audio",
+          {
+            source,
+            type,
+            sampleRate,
+            channels,
+          },
+        );
+
         const args = [
           "-i",
           "pipe:0", // Read from stdin
@@ -692,8 +824,10 @@ export class AudioPlayer extends EventEmitter {
         type,
       });
     }
-  } /**
-   * Convert audio to PCM format using FFmpeg
+  }
+
+  /**
+   * Convert audio to PCM format using node-av if available, fallback to FFmpeg
    * @private
    */
   private async convertAudioToPCM(
@@ -704,11 +838,33 @@ export class AudioPlayer extends EventEmitter {
     const sourceDesc = typeof input === "string" ? input : "stream";
 
     this.emit("conversionStart", sourceDesc, sampleRate, channels);
-    this.emit("debug", "Starting FFmpeg audio conversion", {
-      source: sourceDesc,
-      sampleRate,
-      channels,
-    });
+
+    // Check if node-av is available and use it first
+    if (isNodeAVAvailable()) {
+      this.emit("debug", "Using node-av for audio conversion", {
+        source: sourceDesc,
+        sampleRate,
+        channels,
+      });
+
+      // Use node-av processor - no fallback to FFmpeg since node-av is installed
+      return await nodeAVProcessor.convertAudioToPCM(
+        input,
+        sampleRate,
+        channels,
+      );
+    }
+
+    // Only use FFmpeg if node-av is not available
+    this.emit(
+      "debug",
+      "node-av not available, using FFmpeg for audio conversion",
+      {
+        source: sourceDesc,
+        sampleRate,
+        channels,
+      },
+    );
 
     return new Promise((resolve, reject) => {
       const args = [];

@@ -11,7 +11,6 @@ import { client } from "../client/client";
 import { FullPermissions } from "../utils/index";
 import { APIServerChannel } from "../types";
 import { MessageManager, MessageOptions } from "../managers";
-import { AudioPlayer } from "../client/player";
 
 export interface Overwrite {
   allow: FullPermissions;

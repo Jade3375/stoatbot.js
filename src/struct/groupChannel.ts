@@ -9,7 +9,7 @@ import {
   UserResolvable,
 } from "../managers/index.js";
 import { ChannelPermissions, ChannelTypes } from "../utils/index";
-import { AudioPlayer } from "../client/player";
+import { AudioPlayer } from "../voice/player";
 
 type APIGroupChannel = Extract<APIChannel, { channel_type: "Group" }>;
 

@@ -2,7 +2,7 @@ import type { Channel } from "revolt-api";
 import { ServerChannel } from "./index";
 import { client } from "../client/client";
 import { ChannelTypes } from "../utils/index";
-import { AudioPlayer } from "../client/player";
+import { AudioPlayer } from "../voice/player";
 
 type APIVoiceChannel = Extract<Channel, { channel_type: "VoiceChannel" }>;
 

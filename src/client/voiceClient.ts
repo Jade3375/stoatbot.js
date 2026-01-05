@@ -1,5 +1,5 @@
 import { client } from "./client";
-import { AudioPlayer } from "./player";
+import { AudioPlayer } from "../voice/player";
 
 /**
  * VoiceClient acts as a factory for creating AudioPlayer instances.
