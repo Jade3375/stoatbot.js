@@ -83,6 +83,21 @@ export class ServerMemberManager extends BaseManager<ServerMember, Member> {
   }
 
   /**
+   * set timeout for a member in the server
+   * @param member The member to set the timeout for
+   * @param duration The duration of the timeout as a Date object
+   * @returns A promise that resolves when the timeout is set
+   */
+  async timeout(member: string, duration: Date): Promise<void> {
+    await this.client.api.patch(
+      `/servers/${this.server.id}/members/${member}`,
+      {
+        body: { timeout: duration },
+      },
+    );
+  }
+
+  /**
    * fetch a member from the server
    * @param member The member to fetch
    * @returns A promise that resolves with the fetched member
