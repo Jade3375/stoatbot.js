@@ -221,6 +221,9 @@ export abstract class BaseClient extends EventEmitter {
   /** Whether the client is a bot. */
   bot = true;
 
+  /** Whether to use the default error handler */
+  #useDefaultErrorHandler = true;
+
   /**
    * Creates a new BaseClient instance.
    *
@@ -247,6 +250,28 @@ export abstract class BaseClient extends EventEmitter {
     this.bot = this.options.isBot ?? true;
     this.api = new RestClient(this);
     this.cdn = new CDNClient(this);
+
+    // Set up default error handler to prevent unhandled error exceptions
+    this.on("error", (error) => {
+      // Only use default handler if user hasn't added their own
+      if (this.#useDefaultErrorHandler && this.listenerCount("error") === 1) {
+        console.error(
+          "[stoatbot.js] Unhandled client error occurred. " +
+            "Consider adding an error listener to your client:",
+          error,
+        );
+        console.error(
+          "Example: client.on('error', (error) => { console.error('Bot error:', error); });",
+        );
+      }
+    });
+
+    // Disable default error handler when user adds their own
+    this.on("newListener", (event) => {
+      if (event === "error") {
+        this.#useDefaultErrorHandler = false;
+      }
+    });
   }
 
   /**

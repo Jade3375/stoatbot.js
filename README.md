@@ -45,6 +45,11 @@ bot.on("message", (message: MessageStruct) => {
   }
 });
 
+// Handle errors to prevent crashes
+bot.on("error", (error) => {
+  console.error("Bot error:", error);
+});
+
 bot.login("YOUR_BOT_TOKEN");
 ```
 
