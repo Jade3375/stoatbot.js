@@ -263,7 +263,7 @@ export class ServerMember extends Base {
    * @returns {boolean} Whether the user is a bot.
    */
   get bot(): boolean {
-    return this.user.bot;
+    return this.user.bot ?? false;
   }
 
   /**

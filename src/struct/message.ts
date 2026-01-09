@@ -56,6 +56,9 @@ export class MessageStruct extends Base {
   /** Masquerade information for the message, Name and / or avatar override information */
   masquerade?: Masquerade;
 
+  /** Webhook information for the message, Name and / or avatar override information */
+  webhook?: { name: string; avatar: string | null };
+
   /**
    * Creates a new Message instance.
    *
@@ -95,6 +98,13 @@ export class MessageStruct extends Base {
 
     if (data.channel) {
       this.channelId = data.channel;
+    }
+
+    if (data.webhook) {
+      this.webhook = {
+        name: data.webhook.name,
+        avatar: data.webhook.avatar ?? null,
+      };
     }
 
     if (typeof data.content === "string") {
@@ -155,7 +165,18 @@ export class MessageStruct extends Base {
    *
    * @returns {User | ServerMember | null} The user who authored the message, or `null` if not found.
    */
-  get author(): User | ServerMember | null {
+  get author():
+    | User
+    | ServerMember
+    | Partial<User & { isWebhook: boolean }>
+    | null {
+    if (this.webhook) {
+      return {
+        bot: true,
+        username: this.webhook.name,
+        isWebhook: true,
+      } as Partial<User & { isWebhook: boolean }>;
+    }
     if (this.inServer()) {
       return (
         this.server?.members.cache.get(this.authorId) ??
