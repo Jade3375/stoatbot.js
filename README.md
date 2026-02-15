@@ -1,4 +1,4 @@
-# stoatbot.js.
+# stoatbot.js
 
 # Note: this package is currently in the early stages of development and testing
 
