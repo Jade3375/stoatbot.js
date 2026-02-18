@@ -112,10 +112,15 @@ export class ServerMemberManager extends BaseManager<ServerMember, Member> {
       if (!id) {
         throw new TypeError("INVALID_TYPE");
       }
-      const data = await this.client.api.get(
+      const data = await this.client.api.get<Member>(
         `/servers/${this.server.id}/members/${id}`,
       );
-      return this._add(data as Member);
+
+      // Fetch and cache the user data first
+      await this.client.users.fetch(data._id.user);
+
+      // Then cache and return the member
+      return this._add(data);
     }
 
     const { users, members } = await this.client.api.get<{

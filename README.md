@@ -1,7 +1,5 @@
 # stoatbot.js
 
-# Note: this package is currently in the early stages of development and testing
-
 `stoatbot.js` is a Node.js library for building bots on the Revolt platform. It provides an easy-to-use interface for interacting with Revolt's API, managing events, and handling various bot functionalities. NOTE: node 21 is required to run this
 [stoat server](https://stt.gg/cFSwBt4R) [docs](https://jade3375.github.io/stoatbot.js/)
 
