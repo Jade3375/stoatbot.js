@@ -3,6 +3,7 @@ import { ServerChannel } from "./index";
 import { client } from "../client/client";
 import { ChannelTypes } from "../utils/index";
 import { AudioPlayer } from "../client/player";
+import { Readable } from "node:stream";
 
 type APIVoiceChannel = Extract<Channel, { channel_type: "VoiceChannel" }>;
 
@@ -100,7 +101,7 @@ export class VoiceChannel extends ServerChannel {
   /** Plays audio through the AudioPlayer connected to this voice channel.
    * @param source - The audio source (URL, file path, or stream)
    */
-  async play(source: string): Promise<void> {
+  async play(source: string | Readable): Promise<void> {
     const player = await this.getPlayer();
     if (!player) throw new Error("No active player found for this channel");
     return player.play(source);
